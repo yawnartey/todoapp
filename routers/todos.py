@@ -6,7 +6,10 @@ from sqlalchemy.orm import Session
 from pydantic import BaseModel, Field
 from .auth import get_current_user
 
-router = APIRouter()
+router = APIRouter(
+    prefix='/todos', 
+    tags=['todos']
+)
 
 #create the database dependency
 def get_db(): 
