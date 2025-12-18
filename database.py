@@ -9,15 +9,24 @@ import os
 # engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={'check_same_thread': False})
 
 #connect to postgresql on local
-SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:enoch1234!@localhost/TodoApplicationDatabase'
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+# SQLALCHEMY_DATABASE_URL = 'postgresql://postgres:enoch1234!@localhost/TodoApplicationDatabase'
+# engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
 #connect to postgresql on local via docker
-SQLALCHEMY_DATABASE_URL = os.getenv(
-    'DATABASE_URL', 
-    'postgresql://postgres:enoch1234!@host.docker.internal/TodoApplicationDatabase'
+# SQLALCHEMY_DATABASE_URL = os.getenv(
+#     'DATABASE_URL', 
+#     'postgresql://postgres:enoch1234!@host.docker.internal/TodoApplicationDatabase'
+# )
+# engine = create_engine(SQLALCHEMY_DATABASE_URL)
+
+#connect to sqlite on ec2 instance
+SQLALCHEMY_DATABASE_URL = 'sqlite:///./data/todosapp.db'
+
+engine = create_engine(
+    SQLALCHEMY_DATABASE_URL, 
+    connect_args={'check_same_thread': False}
 )
-engine = create_engine(SQLALCHEMY_DATABASE_URL)
+
 
 #this ensures local changes are not automatically commited to the databse
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
