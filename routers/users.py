@@ -4,8 +4,9 @@ from database import SessionLocal
 from typing import Annotated
 from sqlalchemy.orm import Session
 from .auth import get_current_user
-from pydantic import BaseModel
+from pydantic import BaseModel, Field, field_validator
 from passlib.context import CryptContext
+from validators import validate_password_strength
 
 router = APIRouter(
     prefix='/users', 
@@ -15,7 +16,11 @@ router = APIRouter(
 #pydantic model for the password change request
 class UserVerification(BaseModel):
     current_password: str
-    new_password: str
+    new_password: str = Field(min_length=4)
+
+    @field_validator('new_password')
+    def validate_new_password(cls, v):
+        return validate_password_strength(v)
 
 #create the database dependency
 def get_db(): 
@@ -56,7 +61,7 @@ async def change_password(user: user_dependency, db: db_dependency, user_verific
     
     #verify current password 
     if not bcrypt_context.verify(user_verification.current_password, user_model.hashed_password):
-        raise HTTPException(status_code=401, detail='Error on password change')
+        raise HTTPException(status_code=400, detail='Error on password change. Verify that password is correct')
     
     #hash and update the new password 
     user_model.hashed_password = bcrypt_context.hash(user_verification.new_password)

@@ -3,8 +3,9 @@ from models import Todos
 from database import SessionLocal
 from typing import Annotated
 from sqlalchemy.orm import Session
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, field_validator
 from .auth import get_current_user
+from validators import validate_whitespace, validate_min_length
 
 router = APIRouter(
     prefix='/todos', 
@@ -29,9 +30,14 @@ user_dependency = Annotated[dict, Depends(get_current_user)]
 class TodoRequest(BaseModel): 
     title: str = Field(min_length=3)
     description: str = Field(min_length=3, max_length=500)
-    priority: int = Field(gt=0, lt=11)
+    priority: int = Field(gt=0, lt=6, description='Priority must be between 1-5')
     complete: bool
 
+    @field_validator('title', 'description')
+    def validate_fields(cls, v, info):
+        v = validate_whitespace(v, info.field_name)
+        v = validate_min_length(v, 3, info.field_name)
+        return v
 
 #get todo, but this time based on an authenticated user
 @router.get("/", status_code=status.HTTP_200_OK)

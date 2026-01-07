@@ -5,17 +5,17 @@ from sqlalchemy.ext.declarative import declarative_base
 import os
 
 #connect to sqlite locally
-# SQLALCHEMY_DATABASE_URL = 'sqlite:///./todosapp.db'
-# engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={'check_same_thread': False})
+SQLALCHEMY_DATABASE_URL = 'sqlite:///./todosapp.db'
+engine = create_engine(SQLALCHEMY_DATABASE_URL, connect_args={'check_same_thread': False})
 
 
 #connect to sqlite on ec2 instance
-SQLALCHEMY_DATABASE_URL = 'sqlite:///./data/todosapp.db'
+# SQLALCHEMY_DATABASE_URL = 'sqlite:///./data/todosapp.db'
 
-engine = create_engine(
-    SQLALCHEMY_DATABASE_URL, 
-    connect_args={'check_same_thread': False}
-)
+# engine = create_engine(
+#     SQLALCHEMY_DATABASE_URL, 
+#     connect_args={'check_same_thread': False}
+# )
 
 
 #connect to postgresql on local

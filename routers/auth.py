@@ -1,7 +1,8 @@
 from datetime import timedelta, datetime, timezone
 from typing import Annotated
 from fastapi import APIRouter, Depends, status, HTTPException
-from pydantic import BaseModel
+from pydantic import BaseModel, EmailStr, Field, field_validator
+from validators import validate_password_strength
 from database import SessionLocal
 from sqlalchemy.orm import Session
 from models import Users
@@ -69,13 +70,18 @@ async def get_current_user(token: Annotated[str, Depends(oauth2_bearer)]):
 this class is a pydantic model for creating roles in the database
 '''
 class CreateUserRequest(BaseModel): 
-    username: str 
-    email: str 
-    first_name: str 
-    last_name: str 
-    password: str 
+    username: str = Field(min_length=3)
+    email: EmailStr = Field(min_length=3)
+    first_name: str = Field(min_length=3)
+    last_name: str = Field(min_length=3)
+    password: str = Field(min_length=4)
     role: str
     phone_number: str
+    
+    # validate password
+    @field_validator('password')
+    def validate_password(cls, v):
+        return validate_password_strength(v)
     
 '''
 this class is used to return proper key-value pair output for our access token
