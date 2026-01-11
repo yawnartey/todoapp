@@ -1,0 +1,25 @@
+1. Request hits POST /todos
+         ↓
+2. Router uses dependencies:
+   - get_current_user (auth.py) → validates JWT, returns user info
+   - get_create_todo_use_case (container.py) → provides use case
+         ↓
+3. Schema validates request body:
+   - TodoCreate (todo_schema.py) → validates title, description, priority
+         ↓
+4. Use case executes:
+   - CreateTodoUseCase.execute() → business logic
+         ↓
+5. Repository persists:
+   - TodoRepositoryImpl.create() → saves to database
+         ↓
+6. Response returned:
+   - TodoResponse (todo_schema.py) → formats response
+
+
+
+Request → Router → Use Case → Repository → Database
+                      ↓
+                  Entity (Domain)
+                      ↓
+Response ← Schema ← Router ← Use Case

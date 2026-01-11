@@ -1,0 +1,114 @@
+=====More details with files
+TodoApp-v2/
+├── src/                              # Source code directory
+│   ├── transportation/               # Layer 1: Transportation (Entry point (Presentation))
+│   │   ├── __init__.py
+│   │   ├── api/
+│   │   │   ├── __init__.py
+│   │   │   ├── routers/
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── todos.py
+│   │   │   │   ├── auth.py
+│   │   │   │   ├── users.py
+│   │   │   │   └── admin.py
+│   │   │   ├── schemas/              # Pydantic validation
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── todo_schema.py
+│   │   │   │   ├── user_schema.py
+│   │   │   │   └── auth_schema.py
+│   │   │   └── dependencies/
+│   │   │       ├── __init__.py
+│   │   │       ├── database.py
+│   │   │       ├── auth.py
+│   │   │       └── container.py
+│   │   └── web/
+│   │       ├── __init__.py
+│   │       ├── templates/
+│   │       │   ├── home.html
+│   │       │   ├── todos.html
+│   │       │   ├── add-todo.html
+│   │       │   ├── edit-todo.html
+│   │       │   ├── login.html
+│   │       │   ├── register.html
+│   │       │   ├── layout.html
+│   │       │   └── navbar.html
+│   │       └── static/
+│   │           ├── css/
+│   │           │   ├── base.css
+│   │           │   └── bootstrap.css
+│   │           └── js/
+│   │               ├── base.js
+│   │               ├── bootstrap.js
+│   │               ├── jquery-slim.js
+│   │               └── popper.js
+│   │
+│   ├── domain/                       # Layer 2: Business logic
+│   │   ├── __init__.py
+│   │   ├── entities/
+│   │   │   ├── __init__.py
+│   │   │   ├── todo.py
+│   │   │   └── user.py
+│   │   ├── exceptions/
+│   │   │   ├── __init__.py
+│   │   │   └── domain_exceptions.py
+│   │   ├── interfaces/
+│   │   │   ├── __init__.py
+│   │   │   ├── repositories/
+│   │   │   │   ├── __init__.py
+│   │   │   │   ├── todo_repository.py
+│   │   │   │   └── user_repository.py
+│   │   │   └── services/
+│   │   │       ├── __init__.py
+│   │   │       ├── auth_service.py
+│   │   │       └── password_service.py
+│   │   └── use_cases/
+│   │       ├── __init__.py
+│   │       ├── todo/
+│   │       │   ├── __init__.py
+│   │       │   ├── create_todo.py
+│   │       │   ├── get_todo.py
+│   │       │   ├── list_todos.py
+│   │       │   ├── update_todo.py
+│   │       │   └── delete_todo.py
+│   │       └── user/
+│   │           ├── __init__.py
+│   │           ├── register_user.py
+│   │           ├── authenticate_user.py
+│   │           ├── get_user.py
+│   │           ├── update_user_password.py
+│   │           └── update_user_phone.py
+│   │
+│   └── data/                         # Layer 3: Data (Infrastructure)
+│       ├── __init__.py
+│       ├── config/
+│       │   ├── __init__.py
+│       │   ├── database.py
+│       │   └── settings.py
+│       ├── database/
+│       │   ├── __init__.py
+│       │   ├── models.py
+│       │   └── repositories/
+│       │       ├── __init__.py
+│       │       ├── todo_repository_impl.py
+│       │       └── user_repository_impl.py
+│       ├── security/
+│       │   ├── __init__.py
+│       │   ├── jwt_service.py
+│       │   ├── password_service.py
+│       │   └── oauth2.py
+│       └── migrations/
+│           ├── alembic.ini
+│           └── alembic/
+│               ├── env.py
+│               ├── README
+│               ├── script.py.mako
+│               └── versions/
+│
+├── main.py                           # Application entry point
+├── .env
+├── .gitignore
+├── Dockerfile
+├── requirements.txt
+├── clean-architecture.txt
+├── flow-clean-arch.txt
+└── README.md
