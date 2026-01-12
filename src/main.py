@@ -24,6 +24,8 @@ from src.transportation.web.routers import (
     web_todos_router
 )
 
+# Middleware
+from src.transportation.web.middleware import MethodOverrideMiddleware
 
 # Create database tables
 Base.metadata.create_all(bind=engine)
@@ -33,6 +35,9 @@ app = FastAPI()
 
 # Mount static files
 app.mount("/static", StaticFiles(directory="src/transportation/web/static"), name="static")
+
+# Middleware override
+app.add_middleware(MethodOverrideMiddleware)
 
 # Include Web routers 
 app.include_router(home_router)

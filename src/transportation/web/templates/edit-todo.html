@@ -34,8 +34,13 @@
           <label class="form-check-label">Complete</label>
         </div>
         <button type="submit" class="btn btn-primary">Done</button>
-        <a href="/todos/delete/{{todo.id}}" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete this todo?')">Delete</a>
         <a href="/todos" class="btn btn-success">Back</a>
+      </form>
+      
+      <!-- Separate DELETE form -->
+      <form method="POST" action="/todos/delete/{{todo.id}}" style="display: inline;" onsubmit="return confirm('Are you sure you want to delete this todo?')">
+        <input type="hidden" name="_method" value="DELETE">
+        <button type="submit" class="btn btn-danger">Delete</button>
       </form>
     </div>
   </div>

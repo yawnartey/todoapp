@@ -229,7 +229,7 @@ async def update_todo(
             return RedirectResponse(url="/todos", status_code=302)
 
 
-@router.get("/delete/{todo_id}")
+@router.delete("/delete/{todo_id}")  # ← Changed to DELETE
 async def delete_todo(
     todo_id: int,
     current_user: Annotated[dict, Depends(get_current_user_from_cookie)],
@@ -243,6 +243,6 @@ async def delete_todo(
             user_role=current_user['role']
         )
     except (EntityNotFoundError, PermissionDeniedError):
-        pass  # Silently fail and redirect
+        pass
     
     return RedirectResponse(url="/todos", status_code=302)
